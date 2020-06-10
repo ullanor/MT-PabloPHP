@@ -1,0 +1,91 @@
+<!--background-image: url("iconka.ico");-->
+<html>
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="iconka.ico"/>
+<style>
+body {
+  background: #d4d4d4;
+}
+.content {
+  max-width: 500px;
+  margin: auto;
+  background-color: #2ec761;
+  background-image: linear-gradient(#3498e0, #2ec761);
+  padding: 10px;
+}
+</style>
+</head>
+<body>
+<div class="content">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<form>
+Enter No:<input type="text" id="ethNO"/><br/>  
+<input type="button" value="save" onclick="getcube()"/>  
+</form>
+
+<h1 id="test">Ready for testing?</h1>
+<h2 id="outcome">-||-</h2>
+<h3 id="etherNo">No param</h3>
+<div id = "random"></div>
+<button style="font-size: 16px;" id="start">Start testing</button>
+<button style="margin-left: 0px;font-size: 16px;" id="stop">Stop</button>
+<p style="text-align:right;"><a href="MTPaB_show.php">Show Data</a> <a href="MTPaB_show.php?save=1">Save Data</a>
+<a href="SAVED/">SAVED</a></p>
+<form action="MTPaB_clearDB.php" method="POST" onsubmit="return confirm('Are you sure you want to clear DB?');">
+<input style="font-size:16px;" type="submit" value="ClearDB" style="height:50px; width:100px"/></form>
+<script type = "text/javascript">
+var $parame = 0;
+var $mparame = 66;
+var counter;
+var fun;
+
+function getcube(){
+$parame=parseInt(document.getElementById("ethNO").value);
+$("#etherNo").html("Param: "+$parame);
+}
+
+$("#stop").click(function(){
+$("#test").html("stopped!");
+myStopFunction();
+});
+
+$(document).ready(function(){
+$("#start").click(function(){
+$("#test").html("started!");
+counter = 0;
+parame = $("#etherNo").val(); 
+fun = setInterval(fetchData,3000);
+});
+});
+
+function fetchData(){
+counter += 1;
+$.ajax({
+   url: "MTPaB_main.php",
+   method: "POST",
+   dataType: "json",
+   data: {ether: $mparame},
+   complete: function (data,status) {
+      //alert("result: " + result);
+      $("#outcome").html("result: "+data+ " status: "+status);
+      $("#random").html("count: "+counter);
+   }
+ });
+if($mparame == 66)$mparame = 0;
+//alert($parame+" mp: "+$mparame);
+if(counter == $parame){
+myStopFunction();
+$("#test").html("finished!");
+};
+}
+
+function myStopFunction() {
+  clearInterval(fun);
+  $mparame = 66;
+}
+</script>
+
+</div>
+</body>
+</html>
