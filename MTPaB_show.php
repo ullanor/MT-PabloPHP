@@ -29,7 +29,7 @@
 
 	$connect->close();
 	//start showing data in table ...
-	if($save == 1){echo "saving data .."; ob_start();}//start saving the buffer
+	if($save == 1){ ob_start(); echo "SAVED: ";}//start saving the buffer
 	echo $MAIN_ARRAY[0][uptime]."<br>";
 	//table preparations
 	$TableRows = ceil(count($MAIN_ARRAY)/10);
@@ -40,6 +40,7 @@
     <title>MT-Pablo data</title>
     <style>
         .red   {background-color: #F00;}
+	.whiteyellow {background-color: #90a312;}
         .yellow  {background-color: #ebd113;}
         .white {background-color: #2eb80f;}
     </style>
@@ -49,10 +50,11 @@
 	function checkValues($temp){
         	$marker = 0;
 		global $MAIN_ARRAY;
-		if($MAIN_ARRAY[$temp][wirStat] < -59)$marker = 1;
-		if($MAIN_ARRAY[$temp][wirStat] < -75)$marker = 2;
+		if($MAIN_ARRAY[$temp][wirStat] < -65)$marker = 1;
 		if($MAIN_ARRAY[$temp][txRate] < 54)$marker = 2;
-		if($MAIN_ARRAY[$temp][etherStat] != "100Mbps")$marker = 2;
+		if($MAIN_ARRAY[$temp][wirStat] < -75)$marker = 3;
+		if($MAIN_ARRAY[$temp][txRate] < 48)$marker = 3;
+		if($MAIN_ARRAY[$temp][etherStat] != "100Mbps")$marker = 3;
 
 		$mix = $MAIN_ARRAY[$temp][etherStat]."<br>".
 		"sig: ".$MAIN_ARRAY[$temp][wirStat]."<br>".
@@ -60,7 +62,8 @@
 		$MAIN_ARRAY[$temp][uptime]."<br>";
 
 		if($marker == 0)echo "<td class='white'>".$mix."</td>";
-		elseif($marker == 1)echo "<td class='yellow'>".$mix."</td>";
+		elseif($marker == 1)echo "<td class='whiteyellow'>".$mix."</td>";
+		elseif($marker == 2)echo "<td class='yellow'>".$mix."</td>";
 		else echo "<td class='red'>".$mix."</td>";
 	}
         echo "<table border = '1' style='width: 100%;table-layout: fixed;'>";
@@ -77,7 +80,10 @@
         echo "</table>";
 
 $s = "SAVED/".$MAIN_ARRAY[0][uptime].".html";
-if($save == 1){echo "Saved: ".date("Y-m-d h:i:sa"); file_put_contents($s,ob_get_contents());}
+if($save == 1){date_default_timezone_set('Europe/Warsaw'); echo "Saved: ".date("Y-m-d h:i:sa"); 
+file_put_contents($s,ob_get_contents());
+header("Location: ./");
+}
 ?>
 <!--<script language="javascript">
 alert("data successfully saved!");

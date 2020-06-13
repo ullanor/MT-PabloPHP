@@ -1,4 +1,5 @@
 <?php
+//$saveUP = "dupsko";
 require('routeros_api.class.php');
 $API = new RouterosAPI();
 $API->debug = false;
@@ -37,7 +38,9 @@ if ($API->connect('192.168.0.254', 'admin', '')) {
    else{
    $API->write('/system/routerboard/print');
    $READ = $API->read(false);
-   $OUT = $API->parseResponse($READ); $saveUP = $OUT[0]['serial-number'];}
+   $OUT = $API->parseResponse($READ); $saveUP = $OUT[0]['serial-number'];
+
+   include('MTPaB_checkClear.php');}
 //---------------------------------------------------------------
    $API->disconnect();
 }
