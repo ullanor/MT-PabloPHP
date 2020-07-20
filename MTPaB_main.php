@@ -16,12 +16,13 @@
 	$sql = "INSERT INTO mikroData (uptime,etherStat,wirStat,txRate) VALUES ('$saveUP','$saveEth',$saveWir,$saveTx);";
 	//echo $sql."<br>";
 	if ($connect->query($sql) === TRUE) {
-		$toSave .= "Entry updated!";
+		$toSave .= " & updated!";
 	} else {
-		$toSave .= $connect->error;
+		$toSave .= " update error!";/*$connect->error;*/
 	}
 
 	$connect->close();
 	//return final string to app main
-	echo json_encode($toSave." parame: ".$number);
+	$ret="ok"; if($saveWir == null)$ret="error";
+	echo json_encode("SQL: ".$toSave." MT: ".$ret);
 ?>

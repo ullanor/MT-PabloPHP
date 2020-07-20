@@ -4,8 +4,7 @@ require('routeros_api.class.php');
 $API = new RouterosAPI();
 $API->debug = false;
 
-if ($API->connect('192.168.0.254', 'admin', '')) {
-
+if ($API->connect('10.0.0.11', 'admin', '')) {
 //get ether name and status
    $API->write('/interface/ethernet/print');
    $READ = $API->read(false);

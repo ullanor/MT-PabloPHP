@@ -66,11 +66,20 @@ $.ajax({
    method: "POST",
    dataType: "json",
    data: {ether: $mparame},
-   complete: function (data,status) {
-      //alert("result: " + result);
-      $("#outcome").html("result: "+data+ " status: "+status);
-      $("#random").html("count: "+counter);
+   success: function (data) {
+	$("#outcome").html(data);
+        $("#random").html("count: "+counter);
+   },
+   error: function (jqXHR, exception) {
+	//$("#outcome").html(data);
+        $("#random").html("ERROR: "+jqXHR.status+" "+exception);
+	counter -= 1;
    }
+   //complete: function (data,status) {
+   //   alert("result: " + result);
+   //   $("#outcome").html("result: "+data+ " status: "+status);
+   //   $("#random").html("count: "+counter);
+   //}
  });
 if($mparame == 66)$mparame = 0;
 //alert($parame+" mp: "+$mparame);
