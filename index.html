@@ -16,7 +16,17 @@ body {
 </style>
 </head>
 <body>
+
+<audio id="myAudio">
+  <source src="horse.ogg" type="audio/ogg">
+  <source src="audioTest.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
 <div class="content">
+<!--<button onclick="playAudio()" type="button">Play Audio</button>-->
+<button onclick="pauseAudio()" type="button">AudioOff & Save</button>
+</br></br>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <form>
@@ -30,7 +40,7 @@ Enter No:<input type="text" id="ethNO"/><br/>
 <div id = "random"></div>
 <button style="font-size: 16px;" id="start">Start testing</button>
 <button style="margin-left: 0px;font-size: 16px;" id="stop">Stop</button><!--<a style="margin-left: 200px;" href="MTPaB_checkConn.php">Check Conn</a>-->
-<p style="text-align:right;"><a href="MTPaB_show.php">Show Data</a> <a href="MTPaB_show.php?save=1">Save Data</a>
+<p style="text-align:right;"><a href="MTPaB_show.php">Show Data</a> <a href="MTPaB_testGraph.php">WirGraph</a>
 <a href="SAVED/">SAVED</a></p>
 <form action="MTPaB_clearDB.php" method="POST" onsubmit="return confirm('Are you sure you want to clear DB?');">
 <input style="font-size:16px;" type="submit" value="ClearDB" style="height:50px; width:100px"/></form>
@@ -86,6 +96,7 @@ if($mparame == 66)$mparame = 0;
 if(counter == $parame){
 myStopFunction();
 $("#test").html("finished!");
+playAudio();
 };
 }
 
@@ -93,6 +104,18 @@ function myStopFunction() {
   clearInterval(fun);
   $mparame = 66;
 }
+
+//sound play after finish
+var x = document.getElementById("myAudio"); 
+
+function playAudio() { 
+  x.play(); 
+} 
+
+function pauseAudio() { 
+  x.pause();
+  location.href = "MTPaB_show.php?save=1";
+} 
 </script>
 
 </div>
