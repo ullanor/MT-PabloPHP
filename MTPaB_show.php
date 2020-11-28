@@ -1,5 +1,6 @@
 <?php
 	$save = $_GET['save'];
+	$addi = $_GET['addi'];
 	$MAIN_ARRAY = array();
 
 	$server="localhost";
@@ -31,6 +32,7 @@
 	//start showing data in table ...
 	if($save == 1){ ob_start(); echo "SAVED: ";}//start saving the buffer
 	echo $MAIN_ARRAY[0][uptime]."<br>";
+	if($save == 1){echo "Add-Info: ".$addi;}
 	//table preparations
 	$TableRows = ceil(count($MAIN_ARRAY)/10);
 ?>
