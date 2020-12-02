@@ -25,9 +25,10 @@ body {
 
 <div class="content">
 <!--<button onclick="playAudio()" type="button">Play Audio</button>-->
-<button onclick="pauseAudio()" type="button">SAVE</button></br><!--Add-info:<input type="text" id="addInfo" size="40"/>-->
-</br></br></br>
-<button onclick="startTesting()" type="button">Start 2000</button><button onclick="stopTesting()" type="button">Stop Test</button>
+<button style="font-size: 16px;" onclick="pauseAudio()" type="button">SAVE & AudioOff</button></br><!--Add-info:<input type="text" id="addInfo" size="40"/>-->
+</br></br></br><button onclick="superTester()" type="button">Test Host</button>
+<button style="font-size: 16px;" onclick="startTesting()" type="button">Start 2000</button>
+<button onclick="stopTesting()" type="button">Stop Test</button>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <!--<form>
@@ -40,7 +41,7 @@ Enter No:<input type="text" id="ethNO"/><br/>
 <!--<h3 id="etherNo">No param</h3>-->
 <div id = "random"></div>
 <!--<button style="font-size: 16px;" id="start">Start testing</button>-->
-<button style="margin-left: 0px;font-size: 16px;" id="stop">Stop</button><button id="starttor">Start</button>
+<button id="stop">View Off</button><button id="starttor">View On</button>
 <p style="text-align:right;"><a href="MTPaB_show.php">Show Data</a> <a href="MTPaB_testGraph.php">WirGraph</a>
 <a href="SAVED/">SAVED</a></p>
 <form action="MTPaB_clearDB.php" method="POST" onsubmit="return confirm('Are you sure you want to clear DB?');">
@@ -51,6 +52,7 @@ var $mparame = 66;
 var counter;
 var fun;
 var check2;
+var xSound;
 
 function getcube(){
 $parame=parseInt(document.getElementById("ethNO").value);
@@ -58,21 +60,23 @@ $("#etherNo").html("Param: "+$parame);
 }
 
 $("#starttor").click(function(){
-$("#test").html("Ready for testing");
+$("#test").html("Started");
+clearInterval(fun);
 fun = setInterval(fetchData,5000);
 });
 
 $("#stop").click(function(){
-$("#test").html("stopped!");
+$("#test").html("Stopped");
 myStopFunction();
 });
 
 $(document).ready(function(){
-$("#test").html("Ready for testing");
+$("#test").html("Ready for testing?");
 counter = 0;
+xSound = document.getElementById("myAudio"); 
 check2 = "";
 parame = $("#etherNo").val(); 
-fun = setInterval(fetchData,5000);
+//fun = setInterval(fetchData,5000);
 });
 
 function fetchData(){
@@ -93,9 +97,7 @@ $.ajax({
    }
  });
 if($mparame == 66)$mparame = 0;
-if(check2 == "2000"){
-myStopFunction();
-$("#test").html("2000 surveys finished!");
+if(check2 == "1998" || check2 == "1999"){
 playAudio();
 };
 }
@@ -103,26 +105,41 @@ playAudio();
 function myStopFunction() {
   clearInterval(fun);
   $mparame = 66;
+  xSound.pause();
 }
 
 //sound play after finish
-var x = document.getElementById("myAudio"); 
+//var x = document.getElementById("myAudio"); 
 
-function playAudio() { 
-  x.play(); 
+function playAudio() {
+  xSound.play();
+  $("#test").html("2000 surveys finished! "+check2);
+  //clearInterval(fun); 
 } 
 
 function pauseAudio() { 
-  //x.pause();
+  xSound.pause();
   location.href = "MTPaB_show.php?save=1";
 } 
 function startTesting(){
   location.href = "MTPaB_servSideMain.php";
-  $("#test").html("aaa");
+  $("#test").html("wait a moment");
 }
 function stopTesting(){
-  x.pause();
+  xSound.pause();
   location.href = "MTPaB_servSideMain.php?typer=4";
+}
+//----------------------- testing ----------------------
+function superTester(){
+$("#test").html("testing...");
+$.ajax({
+      type: "POST",
+      url: "some.php",  
+      data:{id :"id"},
+      success:function(data){
+    	$("#test").html("Result: "+data);
+      }
+  });
 }
 </script>
 

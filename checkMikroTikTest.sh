@@ -15,7 +15,7 @@ if test -f "$FILE_TEST_START"; then
     echo "test is running" && exit 1
 fi
 if test -f "$FILE"; then
-    echo "test was started" && sudo php $PHPSCRIPT $(cat $FILE) && date > $FILE_TEST_START
+    echo "test was started" && date > $FILE_TEST_START && sudo php $PHPSCRIPT $(cat $FILE)
 fi
 
 
