@@ -29,6 +29,7 @@ body {
 </br></br></br><button onclick="superTester()" type="button">Test Host</button>
 <button style="font-size: 16px;" onclick="startTesting()" type="button">Start 2000</button>
 <button onclick="stopTesting()" type="button">Stop Test</button>
+<button onclick="eStopTesting()" type="button">Error Stop</button>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <!--<form>
@@ -62,6 +63,7 @@ $("#etherNo").html("Param: "+$parame);
 $("#starttor").click(function(){
 $("#test").html("Started");
 clearInterval(fun);
+fetchData();
 fun = setInterval(fetchData,5000);
 });
 
@@ -128,6 +130,9 @@ function startTesting(){
 function stopTesting(){
   xSound.pause();
   location.href = "MTPaB_servSideMain.php?typer=4";
+}
+function eStopTesting(){
+  location.href = "MTPaB_servSideMain.php?typer=5";
 }
 //----------------------- testing ----------------------
 function superTester(){
