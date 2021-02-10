@@ -132,7 +132,11 @@ function stopTesting(){
   location.href = "MTPaB_servSideMain.php?typer=4";
 }
 function eStopTesting(){
+  if (confirm('Are u sure? Use this button if the remote server was closed during active testing')) {    
   location.href = "MTPaB_servSideMain.php?typer=5";
+  } else {
+  // Do nothing!
+  }
 }
 //----------------------- testing ----------------------
 function superTester(){

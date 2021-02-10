@@ -23,7 +23,7 @@ if ($API->connect('192.168.0.254', 'admin', '')) {
    $API->write("=numbers=$toW",false);
    $API->write('=once=');
    $READ = $API->read(false);
-   $OUT = $API->parseResponse($READ); $saveWir = intval($OUT[0]['signal-strength']); $saveTx = intval(substr($OUT[0]['tx-rate'],0,-4));
+   $OUT = $API->parseResponse($READ); $saveCcq = intval($OUT[0]['overall-tx-ccq']); $saveWir = intval($OUT[0]['signal-strength']); $saveTx = intval(substr($OUT[0]['tx-rate'],0,-4));
 //---------------------------------------------------------------
 //check if first
    if($saveUP == null){

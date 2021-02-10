@@ -17,7 +17,7 @@
 	if ($result->num_rows > 0) {
     	while($row = $result->fetch_assoc()){
         $TEMP_ARRAY = array("y" => abs($row["wirStat"]),
-	"label" => $row["uptime"]);
+	"label" => $row["locTime"]);
 	array_push($MAIN_ARRAY, $TEMP_ARRAY);
 	}
 	}
@@ -34,7 +34,7 @@
 
     var chart = new CanvasJS.Chart("chartContainer", {
     	title: {
-    		text: "MT wireless signal over time"
+    		text: "MT signal over time"
     	},
     	axisY: {
     		title: "Wireless signal absolute",
@@ -54,5 +54,6 @@
 <body>
     <div id="chartContainer" style="height: 370px; width: 100%;"></div>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <br>Time Format: (day_hour:minute)
 </body>
 </html>
